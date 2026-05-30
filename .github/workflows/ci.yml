@@ -1,0 +1,21 @@
+name: CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+      - uses: actions/setup-node@v4@8f152de45cc393bb48ce5d89d36b731f54556e65
+        with:
+          node-version: "22"
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - name: Install
+        run: bun install --frozen-lockfile || bun install
+      - name: Build
+        run: bun run build
