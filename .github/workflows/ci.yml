@@ -31,7 +31,7 @@ jobs:
         with:
           bun-version: latest
       - name: Install and build ${{ matrix.package }}
-        working-directory: ${{ matrix.package }}
+        working-directory: sites/${{ matrix.package }}
         run: |
           bun install --frozen-lockfile || bun install
           bunx astro check

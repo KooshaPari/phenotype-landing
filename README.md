@@ -1,24 +1,42 @@
 # phenotype-landing
 
-Monorepo of Phenotype org public landing sites (Astro + Bun), consolidated from individual repos.
+Monorepo of Phenotype org public landing sites (Astro + Bun), consolidated from individual repos via `git subtree` (squashed merges; reversible on a branch).
 
-## Sub-packages
+## Layout
 
-| Directory | Site / purpose |
-|-----------|----------------|
-| `agileplus-landing` | AgilePlus product landing |
-| `byteport-landing` | BytePort landing |
-| `hwledger-landing` | HW Ledger landing |
-| `phenokits-landing` | Phenokits catalog landing |
-| `projects-landing` | Projects hub landing |
-| `thegent-landing` | TheGent landing |
-| `odin-landing` | Odin static landing (HTML/CSS, no Astro build) |
+All deployable sites live under `sites/<name>/`. Each directory is an independent Astro (or static) package with its own `package.json`, lockfile, and CI in that subtree.
 
-Each `*-landing` directory is an independent deployable; see its own `README.md` for dev commands.
+| Path | Site / purpose |
+|------|----------------|
+| `sites/agileplus-landing` | AgilePlus product landing |
+| `sites/byteport-landing` | BytePort **marketing** landing (not the BytePort app repo) |
+| `sites/hwledger-landing` | HW Ledger landing |
+| `sites/phenokits-landing` | Phenokits catalog landing |
+| `sites/projects-landing` | Projects hub landing |
+| `sites/thegent-landing` | TheGent landing |
+| `sites/odin-landing` | Odin static landing (HTML/CSS, no Astro build) |
+
+**Not absorbed:** `AppGen` — Expo/React Native app scaffold (`expo`, `react-native`), not an Astro landing.
+
+## Per-site development
+
+```bash
+cd sites/<name>
+bun install
+bun run dev    # or see site README
+```
 
 ## Root CI
 
-`.github/workflows/ci.yml` runs Astro typecheck + build for the six Bun/Astro packages on `main` and PRs.
+`.github/workflows/ci.yml` runs Astro typecheck + build for the six Bun/Astro packages under `sites/` on `main` and PRs.
+
+## Subtree updates (optional)
+
+To pull upstream from a source landing repo after merge:
+
+```bash
+git subtree pull --prefix=sites/<name> https://github.com/KooshaPari/<name>.git main --squash
+```
 
 ## License
 
