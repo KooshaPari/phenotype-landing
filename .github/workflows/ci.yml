@@ -33,6 +33,6 @@ jobs:
       - name: Install and build ${{ matrix.package }}
         working-directory: sites/${{ matrix.package }}
         run: |
-          bun install --frozen-lockfile || bun install
+          bun install
           bunx astro check
           bun run build
