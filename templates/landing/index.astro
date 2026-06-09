@@ -1,16 +1,12 @@
 ---
-// Generic landing page template for Phenotype projects.
-//
-// Usage: Copy this template into a new site directory and configure
-// via `data/config.json` or `.phenotype/landing.json` in the project repo.
-//
-// The template reads from `data/config.json` at build time and renders
-// the Hero, Features, CTA, and Footer sections.
-
-import { Hero, Features, CTA, Footer, Header } from '@phenotype/ui';
+// Self-contained landing page — no external component dependencies.
+// All sections are defined inline to avoid package resolution issues.
 import config from '../data/config.json';
 
 const { brand, hero, features, cta, footer, header } = config;
+const links = header?.links ?? [];
+const footerLinks = footer?.links ?? [];
+const featureItems = features?.items ?? [];
 ---
 
 <!DOCTYPE html>
@@ -20,28 +16,108 @@ const { brand, hero, features, cta, footer, header } = config;
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{brand.name} — {brand.tagline}</title>
   <meta name="description" content={brand.description} />
-  <link rel="stylesheet" href="/styles/tokens.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 </head>
 <body>
-  <Header brand={brand.name} links={header?.links ?? []} />
-  <Hero title={hero.title} subtitle={hero.subtitle} cta={hero.cta} />
-  <Features title={features.title} features={features.items} />
-  <CTA text={cta.text} href={cta.href} secondary={cta.secondary} />
-  <Footer brand={brand.name} links={footer?.links ?? []} />
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="/">{brand.name}</a>
+      <nav class="nav">
+        {links.map((l: any) => (
+          <a href={l.href}>{l.label}</a>
+        ))}
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container">
+      <h1>{hero.title}</h1>
+      <p>{hero.subtitle}</p>
+      <div class="hero-actions">
+        <a class="btn-primary" href={hero.cta.href}>{hero.cta.text}</a>
+        {cta.secondary && (
+          <a class="btn-secondary" href={cta.secondary.href}>{cta.secondary.text}</a>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <section class="features">
+    <div class="container">
+      <h2>{features.title}</h2>
+      <div class="features-grid">
+        {featureItems.map((f: any) => (
+          <div class="feature-card">
+            <h3>{f.title}</h3>
+            <p>{f.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="container">
+      <p class="cta-text">{cta.text}</p>
+      <a class="btn-primary" href={cta.href}>{cta.text}</a>
+      {cta.secondary && (
+        <a class="btn-secondary" href={cta.secondary.href}>{cta.secondary.text}</a>
+      )}
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <span class="brand">{brand.name}</span>
+      <nav class="nav">
+        {footerLinks.map((l: any) => (
+          <a href={l.href}>{l.label}</a>
+        ))}
+      </nav>
+    </div>
+  </footer>
 </body>
 </html>
 
 <style is:global>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  :root {
+    --pheno-primary: #0ea5e9;
+    --pheno-dark: #0f172a;
+    --pheno-light: #f8fafc;
+    --max-width: 1200px;
   }
-  body {
-    font-family: 'Inter', system-ui, sans-serif;
-    color: var(--pheno-dark, #0f172a);
-    background: white;
-    line-height: 1.6;
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', system-ui, sans-serif; color: var(--pheno-dark); background: white; line-height: 1.6; }
+  .container { max-width: var(--max-width); margin: 0 auto; padding: 0 1.5rem; }
+  .site-header { border-bottom: 1px solid #e2e8f0; padding: 1rem 0; }
+  .header-inner { display: flex; align-items: center; justify-content: space-between; }
+  .brand { font-weight: 700; font-size: 1.25rem; color: var(--pheno-dark); text-decoration: none; }
+  .nav { display: flex; gap: 1.5rem; }
+  .nav a { color: #475569; text-decoration: none; font-weight: 500; }
+  .nav a:hover { color: var(--pheno-primary); }
+  .hero { padding: 6rem 0; text-align: center; background: var(--pheno-light); }
+  .hero h1 { font-size: 3rem; font-weight: 700; margin-bottom: 1rem; }
+  .hero p { font-size: 1.25rem; color: #475569; max-width: 640px; margin: 0 auto 2rem; }
+  .hero-actions { display: flex; gap: 1rem; justify-content: center; }
+  .btn-primary { display: inline-block; background: var(--pheno-primary); color: white; padding: 0.75rem 1.5rem; border-radius: 0.5rem; text-decoration: none; font-weight: 600; }
+  .btn-secondary { display: inline-block; background: transparent; color: var(--pheno-dark); padding: 0.75rem 1.5rem; border-radius: 0.5rem; text-decoration: none; font-weight: 600; border: 1px solid #e2e8f0; }
+  .features { padding: 4rem 0; }
+  .features h2 { text-align: center; font-size: 2rem; margin-bottom: 3rem; }
+  .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
+  .feature-card { padding: 1.5rem; border: 1px solid #e2e8f0; border-radius: 0.75rem; }
+  .feature-card h3 { font-size: 1.25rem; margin-bottom: 0.5rem; }
+  .feature-card p { color: #475569; }
+  .cta { padding: 4rem 0; text-align: center; background: var(--pheno-light); }
+  .cta-text { font-size: 1.5rem; font-weight: 600; margin-bottom: 1.5rem; }
+  .site-footer { border-top: 1px solid #e2e8f0; padding: 1.5rem 0; }
+  .footer-inner { display: flex; align-items: center; justify-content: space-between; }
+  @media (max-width: 768px) {
+    .hero h1 { font-size: 2rem; }
+    .hero-actions { flex-direction: column; }
+    .features-grid { grid-template-columns: 1fr; }
+    .header-inner, .footer-inner { flex-direction: column; gap: 1rem; text-align: center; }
   }
 </style>
