@@ -8,7 +8,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "data:refresh": "node scripts/fetch-readme.mjs",
+    "data:refresh": "node scripts/fetch-readme.mjs"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
