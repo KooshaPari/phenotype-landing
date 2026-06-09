@@ -1,7 +1,7 @@
 # hwledger-landing
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![CI](https://img.shields.io/github/actions/workflow/status/KooshaPari/hwledger-landing/ci.yml?branch=main)](https://github.com/KooshaPari/hwledger-landing/actions)
+[![CI](https://img.shields.io/github/actions/workflow/status/KooshaPari/phenotype-landing/ci.yml?branch=main)](https://github.com/KooshaPari/phenotype-landing/actions)
 [![TypeScript](https://img.shields.io/badge/typescript-5%2B-3178C6?logo=typescript)](https://www.typescriptlang.org/)
 
 Production landing page at `hwledger.kooshapari.com` for [KooshaPari/hwLedger](https://github.com/KooshaPari/hwLedger), an LLM capacity planner, fleet ledger, and desktop inference runtime. Part of the Phenotype org-pages architecture (Tier 2; Tier 1 is `projects.kooshapari.com`).
@@ -46,8 +46,8 @@ tokio = { version = "1.0", features = ["full"] }
 
 ```bash
 # Clone repository
-git clone https://github.com/KooshaPari/hwledger-landing.git
-cd hwledger-landing
+git clone https://github.com/KooshaPari/phenotype-landing.git
+cd phenotype-landing/sites/hwledger-landing
 
 # Install dependencies
 bun install

@@ -8,7 +8,7 @@ Static site listing all active KooshaPari / Phenotype org repositories with topi
 
 - **Framework**: Astro 6 (static, with light client-side islands for filter/search)
 - **Styling**: Tailwind CSS 4 (`@tailwindcss/vite`) + impeccable CSS reset
-- **Data**: `data/repos.json` snapshot from `gh repo list KooshaPari`
+- **Data**: `data/repos.json` snapshot from GitHub API (`scripts/fetch-repos.mjs`)
 - **Deploy**: Vercel (static output, custom domain `projects.kooshapari.com`) plus GitHub Pages mirror
 
 ## Development
@@ -24,7 +24,6 @@ bun run preview         # preview build
 
 ```bash
 bun run data:refresh        # node scripts/fetch-repos.mjs (uses GitHub REST API)
-bun run data:refresh:gh     # bash scripts/fetch-repos.sh (uses local `gh` CLI)
 ```
 
 `data/repos.json` is also regenerated automatically on every Vercel build via the
@@ -79,7 +78,7 @@ be on `localhost`, `127.0.0.1`, `.local`, `.ts.net`, `.tailnet`, or a
 - `src/pages/index.astro` — single page, renders all cards from `data/repos.json` at build time
 - `src/pages/koosha.astro` — personal-level KooshaPari landing layer over the project graph
 - `src/styles/globals.css` — Tailwind import + impeccable reset + theme tokens
-- `scripts/fetch-repos.sh` — refresh data snapshot
+- `scripts/fetch-repos.mjs` — refresh data snapshot (GitHub API)
 - `data/repos.json` — committed snapshot (refreshed by hand or in CI)
 - `vercel.json` — framework + build config
 - `astro.config.mjs` — Astro + Tailwind Vite plugin
