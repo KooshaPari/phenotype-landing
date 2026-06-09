@@ -1,5 +1,13 @@
-> **Work state:** ACTIVE · **Progress:** `███████░░░ 70%`
-> Astro+Bun monorepo of 7 org landing sites (agileplus, byteport, hwledger, phenokits, projects, thegent, odin), consolidated via git subtree. Sites build; content varies per site. · updated 2026-06-02
+## Work State
+
+| Field | Value |
+|---|---|
+| Last commit | 2026-06-08 |
+| Open issues | 0 |
+| Open PRs | 0 |
+| Focus | Astro+Bun monorepo landing sites |
+
+Progress: ███████░░░ 70%
 
 # phenotype-landing
 
