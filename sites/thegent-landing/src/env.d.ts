@@ -1,5 +1,7 @@
+/// <reference path="../.astro/types.d.ts" />
 /// <reference types="astro/client" />
 
-declare const process: {
-  env: Record<string, string | undefined>;
-};
+declare module '*.json' {
+  const value: any;
+  export default value;
+}
