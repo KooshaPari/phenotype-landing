@@ -66,8 +66,8 @@
   },
   {
     "name": "projects-landing",
-    "description": "Phenotype org portfolio (auto-generated from gh repo list)",
-    "url": "https://github.com/KooshaPari/projects-landing",
+    "description": "Phenotype org portfolio (auto-generated from GitHub API)",
+    "url": "https://github.com/KooshaPari/phenotype-landing",
     "homepageUrl": "https://projects.kooshapari.com",
     "primaryLanguage": {
       "name": "Astro",
