@@ -11,8 +11,7 @@
     "preview": "astro preview",
     "astro": "astro",
     "typecheck": "astro check",
-    "data:refresh": "node scripts/fetch-repos.mjs",
-    "data:refresh:gh": "bash scripts/fetch-repos.sh"
+    "data:refresh": "node scripts/fetch-repos.mjs"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
