@@ -53,8 +53,7 @@ async function main() {
     if (batch.length < PER_PAGE) break;
   }
 
-  // Reshape to match the existing `gh repo list ... --json` schema that
-  // src/pages/index.astro consumes. Keeps the build contract stable.
+  // Reshape to match the GitHub API repo schema that src/pages/index.astro consumes.
   // Note: Fetch topics separately since the list endpoint doesn't include them.
   const reshaped = await Promise.all(all.map(async (r) => {
     const topics = await fetchRepoTopics(USER, r.name);

@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Phenotype org portfolio (auto-generated from gh repo list)",
+  "description": "Phenotype org portfolio (auto-generated from GitHub API)",
   "scripts": {
     "dev": "astro dev",
     "prebuild": "node scripts/fetch-repos.mjs",
