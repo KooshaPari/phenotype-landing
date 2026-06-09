@@ -38,7 +38,7 @@ const PROJECTS = [
   { repo: "Phenokits", site: "phenokits-landing" },
   { repo: "AgilePlus", site: "agileplus-landing" },
   { repo: "HWLedger", site: "hwledger-landing" },
-  { repo: "TheGent", site: "thegent-landing" },
+  { repo: "thegent", site: "thegent-landing" },
 ];
 
 async function fetchConfig(owner, repo) {
