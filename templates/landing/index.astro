@@ -1,0 +1,47 @@
+---
+// Generic landing page template for Phenotype projects.
+//
+// Usage: Copy this template into a new site directory and configure
+// via `data/config.json` or `.phenotype/landing.json` in the project repo.
+//
+// The template reads from `data/config.json` at build time and renders
+// the Hero, Features, CTA, and Footer sections.
+
+import { Hero, Features, CTA, Footer, Header } from '@phenotype/ui';
+import config from '../data/config.json';
+
+const { brand, hero, features, cta, footer, header } = config;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{brand.name} — {brand.tagline}</title>
+  <meta name="description" content={brand.description} />
+  <link rel="stylesheet" href="/styles/tokens.css" />
+</head>
+<body>
+  <Header brand={brand.name} links={header?.links ?? []} />
+  <Hero title={hero.title} subtitle={hero.subtitle} cta={hero.cta} />
+  <Features title={features.title} features={features.items} />
+  <CTA text={cta.text} href={cta.href} secondary={cta.secondary} />
+  <Footer brand={brand.name} links={footer?.links ?? []} />
+</body>
+</html>
+
+<style is:global>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    color: var(--pheno-dark, #0f172a);
+    background: white;
+    line-height: 1.6;
+  }
+</style>

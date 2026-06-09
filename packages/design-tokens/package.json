@@ -1,0 +1,10 @@
+{
+  "name": "@phenotype/design-tokens",
+  "version": "0.1.0",
+  "description": "Shared design tokens for Phenotype landing pages",
+  "type": "module",
+  "exports": {
+    "./tailwind": "./tailwind.config.mjs",
+    "./css": "./tokens.css"
+  }
+}
