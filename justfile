@@ -39,6 +39,16 @@ lint:
 # Full quality gate: check + build + lint
 quality: check build lint
 
+# Dependency audit via cargo-deny. No-op for the Astro/JS sites since
+# phenotype-landing has no Rust crate dependencies; the recipe is kept
+# for org-wide SSOT alignment and to gate any future Rust surface.
+deny:
+    @if [ -f Cargo.toml ]; then \
+        cargo deny check; \
+    else \
+        echo "deny: no Cargo.toml found in $(pwd) — skipping (Astro/JS monorepo)"; \
+    fi
+
 # Remove build artifacts
 clean:
     rm -rf sites/*/dist sites/*/.astro
