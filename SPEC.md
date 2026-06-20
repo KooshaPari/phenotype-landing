@@ -39,3 +39,7 @@ The factory must scale: adding a new landing = dropping a new directory under `s
 ## 5. Success criteria
 
 `task quality` passes; all 6 Astro sites build via root CI; adding an 8th site requires only `sites/<name>/` + one line in `Taskfile.yml` + one matrix entry.
+
+## v8 Phase 3 — T17 + T18 (2026-06-20)
+
+Tightened lint configurations and Tier-2 coverage gate per ADR-040 (80% lib / 70% framework / 60% service). HOOKS_SKIP / SKIP env vars enable ad-hoc testing. OIDC trust (no PAT secrets).
