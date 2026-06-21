@@ -665,7 +665,7 @@
   },
   {
     "name": "PhenoContracts",
-    "description": "Phenotype contract verification — formal verification port + Prusti/Kani adapters + contract test bundle",
+    "description": "Archived contract verification source; repo-level gate tracked in phenotype-registry",
     "url": "https://github.com/KooshaPari/PhenoContracts",
     "homepageUrl": null,
     "primaryLanguage": {
@@ -674,7 +674,7 @@
     },
     "stargazerCount": 0,
     "pushedAt": "2026-06-20T09:46:10Z",
-    "isArchived": false,
+    "isArchived": true,
     "isFork": false,
     "repositoryTopics": []
   },
