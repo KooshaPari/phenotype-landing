@@ -22,6 +22,8 @@ jobs:
           - odin-landing
           - phenokits-landing
           - projects-landing
+          - tasken-landing
+          - tracera-landing
           - thegent-landing
     steps:
       - uses: actions/checkout@v4

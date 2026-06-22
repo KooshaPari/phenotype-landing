@@ -1,7 +1,7 @@
 version: "3"
 
 vars:
-  SITES: "agileplus-landing byteport-landing hwledger-landing phenokits-landing projects-landing thegent-landing"
+  SITES: "agileplus-landing byteport-landing hwledger-landing phenokits-landing projects-landing tasken-landing tracera-landing thegent-landing"
   ODIN: "odin-landing"
 
 tasks:
