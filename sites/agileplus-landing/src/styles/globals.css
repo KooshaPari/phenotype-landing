@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./tokens.css";
 
 /* impeccable CSS baseline — github.com/pbakaus/impeccable */
 *, *::before, *::after { box-sizing: border-box; }
@@ -6,92 +7,123 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  color-scheme: dark;
 }
 img, video { max-width: 100%; height: auto; }
 input, button, textarea, select { font: inherit; }
 p, h1, h2, h3, h4, h5, h6 { overflow-wrap: break-word; }
 
-:root {
-  color-scheme: dark light;
-
-  /* Dark-mode tokens */
-  --bg-dark: #0a0a0b;
-  --fg-dark: #ededed;
-  --muted-dark: #8a8a93;
-  --surface-dark: #111114;
-  --surface-strong-dark: #18181d;
-  --border-dark: #1f1f23;
-  --card-dark: #111114;
-  --accent-dark: #f97316;
-  --ok-dark: #22c55e;
-  --warn-dark: #eab308;
-  --bad-dark: #ef4444;
-
-  /* Light-mode tokens */
-  --bg-light: #fafafa;
-  --fg-light: #0a0a0b;
-  --muted-light: #6b6b73;
-  --surface-light: #ffffff;
-  --surface-strong-light: #f5f5f8;
-  --border-light: #e5e5e8;
-  --card-light: #ffffff;
-  --accent-light: #c2410c;
-  --ok-light: #16a34a;
-  --warn-light: #ca8a04;
-  --bad-light: #dc2626;
-
-  --bg: var(--bg-dark);
-  --fg: var(--fg-dark);
-  --muted: var(--muted-dark);
-  --surface: var(--surface-dark);
-  --surface-strong: var(--surface-strong-dark);
-  --border: var(--border-dark);
-  --card: var(--card-dark);
-  --accent: var(--accent-dark);
-  --ok: var(--ok-dark);
-  --warn: var(--warn-dark);
-  --bad: var(--bad-dark);
-
-  --text: var(--fg);
-  --line: var(--border);
-  --container-inline: 1rem;
-  --container-max: 100%;
-  --section-gap: 2.5rem;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    --bg: var(--bg-light);
-    --fg: var(--fg-light);
-    --muted: var(--muted-light);
-    --surface: var(--surface-light);
-    --surface-strong: var(--surface-strong-light);
-    --border: var(--border-light);
-    --card: var(--card-light);
-    --accent: var(--accent-light);
-    --ok: var(--ok-light);
-    --warn: var(--warn-light);
-    --bad: var(--bad-light);
-    --text: var(--fg);
-    --line: var(--border);
-  }
-}
+/* =============================================================================
+ * Phenotype design system — token-driven base styles
+ * Tokens are defined in tokens.css (midnight bg, teal primary, Montserrat +
+ * Bricolage Grotesque + JetBrains Mono). All fg/bg pairs target WCAG 2.1 AA.
+ * =========================================================================== */
 
 html, body {
   background: var(--bg);
   color: var(--fg);
-  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-family: var(--font-sans);
 }
 
 body {
   margin: 0;
   min-width: 320px;
+  min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--fg);
+}
+
+/* Display heading utility — Bricolage Grotesque for hero/landing titles */
+.display {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+
+::selection {
+  background: var(--primary);
+  color: var(--on-primary);
 }
 
 :focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--primary);
   outline-offset: 3px;
+  border-radius: 4px;
 }
+
+/* =============================================================================
+ * Phenotype design system — minimal component class hooks
+ * =========================================================================== */
+
+.surface          { background: var(--surface); }
+.surface-strong   { background: var(--surface-strong); }
+.surface-card     { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); }
+
+.text-fg          { color: var(--fg); }
+.text-muted       { color: var(--muted); }
+.text-dim         { color: var(--dim); }
+.text-primary     { color: var(--primary); }
+.text-on-primary  { color: var(--on-primary); }
+
+.bg-app           { background: var(--bg); }
+.bg-primary       { background: var(--primary); color: var(--on-primary); }
+.bg-primary-soft  { background: var(--primary-soft); color: var(--primary); }
+
+.border-app       { border-color: var(--border); }
+.border-strong    { border-color: var(--border-strong); }
+.border-primary   { border-color: var(--primary); }
+
+.divider          { border-top: 1px solid var(--border); }
+
+.mono             { font-family: var(--font-mono); }
+
+.ring-primary     { box-shadow: 0 0 0 1px var(--primary); }
+
+/* Status pills */
+.badge-ok   { background: color-mix(in srgb, var(--ok) 15%, transparent);   color: var(--ok); }
+.badge-warn { background: color-mix(in srgb, var(--warn) 15%, transparent); color: var(--warn); }
+.badge-bad  { background: color-mix(in srgb, var(--bad) 15%, transparent);  color: var(--bad); }
+
+/* Button: primary CTA */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--primary);
+  color: var(--on-primary);
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  text-decoration: none;
+  border: 1px solid transparent;
+  transition: background var(--duration-fast) var(--ease-out),
+              transform var(--duration-fast) var(--ease-out);
+}
+.btn-primary:hover  { background: var(--primary-strong); }
+.btn-primary:active { transform: translateY(1px); }
+
+/* Button: secondary / ghost */
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: transparent;
+  color: var(--fg);
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  text-decoration: none;
+  border: 1px solid var(--border-strong);
+  transition: border-color var(--duration-fast) var(--ease-out),
+              color var(--duration-fast) var(--ease-out);
+}
+.btn-secondary:hover { border-color: var(--primary); color: var(--primary); }
 
 /* Responsive shell */
 .site-shell {
@@ -125,7 +157,7 @@ body {
   }
 }
 
-.mono { font-family: ui-monospace, SFMono-Regular, "JetBrains Mono", Menlo, monospace; }
+.mono { font-family: var(--font-mono); }
 
 .responsive-actions {
   display: flex;
@@ -160,4 +192,14 @@ body {
 
 .readme-prose {
   max-width: min(100%, 72ch);
+}
+
+/* Honor reduced-motion preference. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
