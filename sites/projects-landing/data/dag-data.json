@@ -159,7 +159,7 @@
     {
       "id": "f09",
       "label": "DAG CLI tooling",
-      "status": "blocked",
+      "status": "pending",
       "type": "tooling",
       "epic": "Epic F — DAG Foundation & Automation",
       "repo": "phenotype-landing",
