@@ -36,6 +36,9 @@
   let selectedId = null;
   let nodeRects = new Map(); // id -> {cx, cy, x, y, w, h}
 
+  // ── filter state ────────────────────────────────────────────────────────────
+  let currentFilter = { repo: "", epic: "", search: "" };
+
   // ── dag helpers ─────────────────────────────────────────────────────────────
 
   function topoSort(nodes, edges) {
@@ -134,6 +137,111 @@
     const cp2x = x2;
     const cp2y = y2 - LAYER_GAP / 2;
     return `M ${x1} ${y1} C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${x2} ${y2}`;
+  }
+
+  function getAvailableRepos(dagData) {
+    const repos = new Set();
+    for (const n of dagData.nodes) {
+      if (n.repo) repos.add(n.repo);
+    }
+    return [...repos].sort();
+  }
+
+  function getAvailableEpics(dagData) {
+    const epics = new Set();
+    for (const n of dagData.nodes) {
+      if (n.epic) epics.add(n.epic);
+    }
+    return [...epics].sort();
+  }
+
+  function nodePassesFilter(node, filter) {
+    if (filter.repo && node.repo !== filter.repo) return false;
+    if (filter.epic && node.epic !== filter.epic) return false;
+    if (filter.search) {
+      const q = filter.search.toLowerCase();
+      const label = (node.label || "").toLowerCase();
+      const id = (node.id || "").toLowerCase();
+      const repo = (node.repo || "").toLowerCase();
+      const epic = (node.epic || "").toLowerCase();
+      if (label.indexOf(q) === -1 && id.indexOf(q) === -1 && repo.indexOf(q) === -1 && epic.indexOf(q) === -1) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  function applyFilter(dagData, filter) {
+    currentFilter = { repo: filter.repo || "", epic: filter.epic || "", search: filter.search || "" };
+    if (!gNodes) return;
+    const allGroups = gNodes.querySelectorAll("g[data-id]");
+    const visibleIds = new Set();
+    for (const g of allGroups) {
+      const nid = g.getAttribute("data-id");
+      const node = dagData.nodes.find((x) => x.id === nid);
+      if (node && nodePassesFilter(node, currentFilter)) {
+        g.style.display = "";
+        visibleIds.add(nid);
+      } else {
+        g.style.display = "none";
+      }
+    }
+    const edges = gEdges.querySelectorAll("path[data-from][data-to]");
+    for (const p of edges) {
+      const from = p.getAttribute("data-from");
+      const to = p.getAttribute("data-to");
+      if (visibleIds.has(from) && visibleIds.has(to)) {
+        p.style.display = "";
+      } else {
+        p.style.display = "none";
+      }
+    }
+    updateFilterBadge(dagData);
+  }
+
+  function getActiveFilterCount() {
+    let count = 0;
+    if (currentFilter.repo) count++;
+    if (currentFilter.epic) count++;
+    if (currentFilter.search) count++;
+    return count;
+  }
+
+  function updateFilterBadge(dagData) {
+    const badge = document.getElementById("dag-filter-count");
+    const clearBtn = document.getElementById("dag-filter-clear");
+    if (!badge) return;
+    const count = getActiveFilterCount();
+    if (count > 0) {
+      badge.textContent = String(count);
+      badge.classList.remove("hidden");
+      if (clearBtn) clearBtn.classList.remove("hidden");
+    } else {
+      badge.classList.add("hidden");
+      if (clearBtn) clearBtn.classList.add("hidden");
+    }
+    if (gNodes) {
+      const allGroups = gNodes.querySelectorAll("g[data-id]");
+      let visible = 0;
+      for (const g of allGroups) {
+        if (g.style.display !== "none") visible++;
+      }
+      const visibleSpan = document.getElementById("dag-filter-visible-count");
+      if (visibleSpan) {
+        visibleSpan.textContent = visible + " / " + dagData.nodes.length + " nodes";
+      }
+    }
+  }
+
+  function getFilterState() {
+    return { ...currentFilter };
+  }
+
+  function getFilterOptions(dagData) {
+    return {
+      repos: getAvailableRepos(dagData),
+      epics: getAvailableEpics(dagData),
+    };
   }
 
   // ── render ──────────────────────────────────────────────────────────────────
@@ -338,5 +446,9 @@
   window.DagRenderer = {
     render,
     getStatusSummary,
+    applyFilter,
+    getFilterState,
+    getFilterOptions,
+    getActiveFilterCount,
   };
 })();
