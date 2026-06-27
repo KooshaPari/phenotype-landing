@@ -45,6 +45,8 @@ All deployable sites live under `sites/<name>/`. Each directory is an independen
 | `sites/hwledger-landing` | HW Ledger landing |
 | `sites/phenokits-landing` | Phenokits catalog landing |
 | `sites/projects-landing` | Projects hub landing |
+| `sites/tasken-landing` | Tasken task orchestration landing |
+| `sites/tracera-landing` | Tracera requirements traceability landing |
 | `sites/thegent-landing` | TheGent landing |
 | `sites/odin-landing` | Odin static landing (HTML/CSS, no Astro build) |
 
@@ -60,7 +62,7 @@ bun run dev    # or see site README
 
 ## Root CI
 
-`.github/workflows/ci.yml` runs Astro typecheck + build for the six Bun/Astro packages under `sites/` on `main` and PRs.
+`.github/workflows/ci.yml` runs Astro typecheck + build for the eight Bun/Astro packages under `sites/` on `main` and PRs.
 
 ## Subtree updates (optional)
 
