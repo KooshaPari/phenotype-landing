@@ -1,0 +1,9 @@
+{
+  "name": "@phenotype/site-base",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./resolve-base": "./resolve-base.mjs"
+  }
+}

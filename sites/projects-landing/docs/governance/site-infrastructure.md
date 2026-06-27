@@ -10,7 +10,9 @@
 - Build command: `bun run build`.
 - Static output: `dist/`.
 - Pages base path: `/projects-landing`, enabled during the Pages workflow with
-  `GITHUB_PAGES=true`.
+  `GITHUB_PAGES=true` only (not `GITHUB_ACTIONS`). Custom-domain and
+  `*.phenotype.space` builds use `/` via `packages/site-base/resolve-base.mjs`
+  or `PHENOTYPE_CUSTOM_DOMAIN=true`.
 - CI runtime: Node 22 plus Bun, required by Astro 6.
 - GitHub Actions are pinned to full commit SHAs with tag comments for auditability.
 - Pages permissions are scoped at job level rather than workflow level.
