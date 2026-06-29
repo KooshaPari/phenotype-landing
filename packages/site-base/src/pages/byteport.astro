@@ -1,0 +1,38 @@
+---
+import { Header, Hero, Features, CTA, Footer } from '@phenotype/ui';
+import '@phenotype/design-tokens/tokens.css';
+
+const features = [
+  { title: 'Go Backend', description: 'Fast, single-binary Go service for data transport and port management.', icon: '⚡' },
+  { title: 'Desktop App', description: 'Tauri desktop client — ships as real installers (.msi / .dmg / .AppImage / .deb).', icon: '🖥️' },
+  { title: 'Cross-Platform', description: 'One codebase, native builds for Windows, macOS, and Linux.', icon: '🌐' },
+  { title: 'Offline-First', description: 'Works locally; connects to live services when you need them.', icon: '🔌' },
+];
+const navLinks = [
+  { text: 'GitHub', href: 'https://github.com/KooshaPari/BytePort' },
+  { text: 'Docs', href: 'https://phenotype.space/byteport/docs' },
+];
+---
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>BytePort — Data Transport, Desktop & Backend</title>
+    <meta name="description" content="BytePort: a cross-platform data-transport app — Go backend + Tauri desktop client, shipped as native installers." />
+  </head>
+  <body>
+    <Header brand="BytePort" links={navLinks} />
+    <Hero
+      title="BytePort"
+      subtitle="Cross-platform data transport — Go backend, Tauri desktop, native installers."
+      cta={{ text: 'Get BytePort', href: 'https://github.com/KooshaPari/BytePort/releases' }}
+    />
+    <Features title="What BytePort does" features={features} />
+    <CTA
+      text="View on GitHub"
+      href="https://github.com/KooshaPari/BytePort"
+      secondary={{ text: 'Read the docs', href: 'https://phenotype.space/byteport/docs' }}
+    />
+    <Footer brand="BytePort" links={navLinks} />
+  </body>
+</html>

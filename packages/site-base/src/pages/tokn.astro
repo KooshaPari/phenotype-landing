@@ -1,0 +1,38 @@
+---
+import { Header, Hero, Features, CTA, Footer } from '@phenotype/ui';
+import '@phenotype/design-tokens/tokens.css';
+
+const features = [
+  { title: 'Usage Analytics', description: 'Fast token/session usage and blended cost analytics for AI coding agents.', icon: '🪙' },
+  { title: 'Pricing Governance', description: 'Track and govern model pricing across providers — know what every run costs.', icon: '💰' },
+  { title: 'Native Binary', description: 'Single Rust binary (tokenledger) — no runtime, runs anywhere.', icon: '⚙️' },
+  { title: 'Pareto Insights', description: 'Built-in pareto analysis surfaces the few calls driving most of the spend.', icon: '📊' },
+];
+const navLinks = [
+  { text: 'GitHub', href: 'https://github.com/KooshaPari/Tokn' },
+  { text: 'Docs', href: 'https://phenotype.space/tokn/docs' },
+];
+---
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tokn — Token Usage & Cost Analytics</title>
+    <meta name="description" content="Tokn (tokenledger): token/session usage and blended cost analytics with pricing governance for AI coding agents — a single native Rust binary." />
+  </head>
+  <body>
+    <Header brand="Tokn" links={navLinks} />
+    <Hero
+      title="Tokn"
+      subtitle="Token usage & blended cost analytics with pricing governance for AI coding agents."
+      cta={{ text: 'Get Tokn', href: 'https://github.com/KooshaPari/Tokn/releases' }}
+    />
+    <Features title="What Tokn does" features={features} />
+    <CTA
+      text="View on GitHub"
+      href="https://github.com/KooshaPari/Tokn"
+      secondary={{ text: 'Read the docs', href: 'https://phenotype.space/tokn/docs' }}
+    />
+    <Footer brand="Tokn" links={navLinks} />
+  </body>
+</html>

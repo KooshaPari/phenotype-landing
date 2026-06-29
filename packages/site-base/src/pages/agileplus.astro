@@ -1,0 +1,38 @@
+---
+import { Header, Hero, Features, CTA, Footer } from '@phenotype/ui';
+import '@phenotype/design-tokens/tokens.css';
+
+const features = [
+  { title: 'Spec-First PM', description: 'Seed FR/NFR catalogs as Epics + Stories — requirements drive the plan, not the other way round.', icon: '📋' },
+  { title: 'Tracera Traceability', description: 'Every story carries its FR/NFR tag (e.g. [FR-AGP-001]) — full requirement→work coverage.', icon: '🧭' },
+  { title: 'Feature / Module / Cycle', description: 'Manage features, modules, and cycles from one CLI against a local SQLite project DB.', icon: '🔁' },
+  { title: 'GitHub Sync', description: 'Sync a GitHub repository into an AgilePlus project — issues become tracked work.', icon: '🔗' },
+];
+const navLinks = [
+  { text: 'GitHub', href: 'https://github.com/KooshaPari/AgilePlus' },
+  { text: 'Docs', href: 'https://phenotype.space/agileplus/docs' },
+];
+---
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AgilePlus — Spec-First Project Management CLI</title>
+    <meta name="description" content="AgilePlus: a spec-first project management CLI with FR/NFR traceability, epics/stories/cycles, and GitHub sync — a single native Rust binary." />
+  </head>
+  <body>
+    <Header brand="AgilePlus" links={navLinks} />
+    <Hero
+      title="AgilePlus"
+      subtitle="Spec-first project management — FR/NFR-traced epics, stories, and cycles, in one native CLI."
+      cta={{ text: 'Get AgilePlus', href: 'https://github.com/KooshaPari/AgilePlus/releases' }}
+    />
+    <Features title="What AgilePlus does" features={features} />
+    <CTA
+      text="View on GitHub"
+      href="https://github.com/KooshaPari/AgilePlus"
+      secondary={{ text: 'Read the docs', href: 'https://phenotype.space/agileplus/docs' }}
+    />
+    <Footer brand="AgilePlus" links={navLinks} />
+  </body>
+</html>
