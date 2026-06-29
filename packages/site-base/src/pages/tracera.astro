@@ -1,0 +1,40 @@
+---
+import { Header, Hero, Features, CTA, Footer } from '@phenotype/ui';
+import '@phenotype/design-tokens/tokens.css';
+
+const features = [
+  { title: 'Coverage Matrix', description: 'ISO-29148 / DO-178C requirement→artifact coverage with Covered/Partial/Missing/Stale/Conflict cells.', icon: '🧭' },
+  { title: 'Impact Analysis', description: 'BFS impact + blast-radius across the trace graph — know what a change touches before you ship it.', icon: '💥' },
+  { title: 'Governance Gate', description: 'Spec-first gate: not_approved / missing_acceptance / missing_evidence / missing_implementation / missing_test.', icon: '🛡️' },
+  { title: 'Native Binary', description: '20 endpoints compiled into a single Rust axum exe — no Python, no uvicorn. Runs anywhere.', icon: '⚙️' },
+];
+
+const navLinks = [
+  { text: 'GitHub', href: 'https://github.com/KooshaPari/Tracera' },
+  { text: 'Docs', href: 'https://phenotype.space/tracera/docs' },
+];
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tracera — Requirements Traceability & Impact Analysis</title>
+    <meta name="description" content="Tracera: ISO-29148/DO-178C requirements traceability, coverage matrix, impact analysis, and a spec-first governance gate — shipped as a single native Rust binary." />
+  </head>
+  <body>
+    <Header brand="Tracera" links={navLinks} />
+    <Hero
+      title="Tracera"
+      subtitle="Requirements traceability & impact analysis — coverage matrix, blast-radius, and a spec-first governance gate, in one native binary."
+      cta={{ text: 'Get Tracera', href: 'https://github.com/KooshaPari/Tracera/releases' }}
+    />
+    <Features title="What Tracera does" features={features} />
+    <CTA
+      text="View on GitHub"
+      href="https://github.com/KooshaPari/Tracera"
+      secondary={{ text: 'Read the docs', href: 'https://phenotype.space/tracera/docs' }}
+    />
+    <Footer brand="Tracera" links={navLinks} />
+  </body>
+</html>

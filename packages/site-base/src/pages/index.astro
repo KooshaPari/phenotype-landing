@@ -1,0 +1,29 @@
+---
+import { Header, Hero, Features, Footer } from '@phenotype/ui';
+import '@phenotype/design-tokens/tokens.css';
+
+// Project card-list. Each maps to its phenotype.space/<proj> landing page.
+const projects = [
+  { title: 'Tracera', description: 'Requirements traceability & impact analysis — native Rust, 20 endpoints.', icon: '🧭' },
+  { title: 'AgilePlus', description: 'Spec-first project management CLI with FR/NFR traceability.', icon: '📋' },
+  { title: 'BytePort', description: 'Data-transport app — Go backend + Tauri desktop.', icon: '🔌' },
+  { title: 'Tokn', description: 'Token/session usage & blended cost analytics for AI coding agents.', icon: '🪙' },
+];
+
+const navLinks = [{ text: 'GitHub', href: 'https://github.com/KooshaPari' }];
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Phenotype — Projects</title>
+    <meta name="description" content="The Phenotype project suite: traceability, project management, data transport, and cost analytics." />
+  </head>
+  <body>
+    <Header brand="Phenotype" links={navLinks} />
+    <Hero title="Phenotype" subtitle="A suite of agent-built developer tools — traceability, PM, transport, analytics." />
+    <Features title="Projects" features={projects} />
+    <Footer brand="Phenotype" links={navLinks} />
+  </body>
+</html>

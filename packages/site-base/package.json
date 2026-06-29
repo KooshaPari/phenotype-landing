@@ -3,7 +3,17 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
   "exports": {
     "./resolve-base": "./resolve-base.mjs"
+  },
+  "dependencies": {
+    "astro": "^6.0.0",
+    "@phenotype/ui": "workspace:*",
+    "@phenotype/design-tokens": "workspace:*"
   }
 }
