@@ -7,7 +7,7 @@
 set dotenv-load := false
 set shell := ["bash", "-uc"]
 
-sites := "agileplus-landing byteport-landing hwledger-landing phenokits-landing projects-landing thegent-landing"
+sites := "tracera-landing agileplus-landing byteport-landing hwledger-landing phenokits-landing projects-landing thegent-landing"
 
 default:
     @just --list
