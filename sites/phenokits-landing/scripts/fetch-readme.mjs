@@ -7,8 +7,15 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
+const __filename = fileURLToPath(import.meta.url);
+const __isMain = resolve(process.argv[1] || "") === __filename;
 const REPO = "KooshaPari/Phenokits";
 const DATA_DIR = resolve(__dirname, "..", "src", "data");
+
+// Retry constants
+const MAX_RETRIES = 3;
+const BASE_DELAY_MS = 500;
+const REQUEST_TIMEOUT_MS = 15_000;
 
 const token = process.env.GITHUB_TOKEN || process.env.GH_TOKEN;
 const headers = {
@@ -17,6 +24,32 @@ const headers = {
   "User-Agent": "phenokits-landing-build",
 };
 if (token) headers.Authorization = `Bearer ${token}`;
+
+/**
+ * Fetch with bounded retry, exponential backoff + jitter, and AbortSignal timeout.
+ * Exported for testability.
+ */
+export async function fetchWithRetry(url, fetchOpts = {}, retries = MAX_RETRIES) {
+  let lastErr;
+  for (let attempt = 0; attempt <= retries; attempt++) {
+    const ac = new AbortController();
+    const timeoutId = setTimeout(() => ac.abort(), REQUEST_TIMEOUT_MS);
+    try {
+      const res = await fetch(url, { ...fetchOpts, signal: ac.signal });
+      return res;
+    } catch (err) {
+      lastErr = err;
+      if (attempt < retries) {
+        const delay = Math.min(BASE_DELAY_MS * 2 ** attempt + Math.random() * 200, 4000);
+        console.warn(`[retry] ${url} attempt ${attempt + 1} failed: ${err.message}, retrying in ${delay}ms`);
+        await new Promise((r) => setTimeout(r, delay));
+      }
+    } finally {
+      clearTimeout(timeoutId);
+    }
+  }
+  throw lastErr;
+}
 
 async function fetchAll() {
   await mkdir(DATA_DIR, { recursive: true });
@@ -28,7 +61,7 @@ async function fetchAll() {
   ];
 
   for (const [filename, url, accept] of endpoints) {
-    const res = await fetch(url, { headers: { ...headers, Accept: accept } });
+    const res = await fetchWithRetry(url, { headers: { ...headers, Accept: accept } });
     if (res.ok) {
       const text = await res.text();
       await writeFile(resolve(DATA_DIR, filename), text);
@@ -41,7 +74,9 @@ async function fetchAll() {
   console.log(`[fetch] refreshed snapshots in ${DATA_DIR}`);
 }
 
-fetchAll().catch(err => {
-  console.error(err);
-  process.exit(1);
-});
+if (__isMain) {
+  fetchAll().catch(err => {
+    console.error(err);
+    process.exit(1);
+  });
+}
