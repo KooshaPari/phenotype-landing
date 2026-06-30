@@ -60,6 +60,31 @@ bun install
 bun run dev    # or see site README
 ```
 
+## Vercel Deployments
+
+The following sites are configured for Vercel deployment. Each has a `vercel.json` at the site root:
+
+| Site | Vercel Config | phenotype.space URL | Status |
+|------|---------------|-------------------|--------|
+| `sites/tracera-landing` | ✓ `vercel.json` | `https://phenotype.space/tracera` | Astro + Bun |
+| `sites/agileplus-landing` | ✓ `vercel.json` | `https://phenotype.space/agileplus` | Astro + Bun |
+| `sites/byteport-landing` | ✓ `vercel.json` | `https://phenotype.space/byteport` | Astro + Bun |
+| `sites/tokn-landing` | ✓ `vercel.json` | `https://phenotype.space/tokn` | Astro + Bun |
+
+Each `vercel.json` specifies:
+- `framework: "astro"`
+- `buildCommand: "bun run build"`
+- `outputDirectory: "dist"`
+- `installCommand: "bun install"`
+
+Deploy a site to Vercel:
+```bash
+cd sites/<name>
+vercel --prod
+```
+
+Or connect the repo to Vercel Dashboard for automatic deployments on push to `main`.
+
 ## Root CI
 
 `.github/workflows/ci.yml` runs Astro typecheck + build for the eight Bun/Astro packages under `sites/` on `main` and PRs.
