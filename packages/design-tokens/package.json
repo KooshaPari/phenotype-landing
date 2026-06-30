@@ -1,6 +1,9 @@
 {
   "name": "@phenotype/design-tokens",
   "version": "0.1.0",
+  "publishConfig": {
+    "access": "public"
+  },
   "description": "Shared design tokens for Phenotype landing pages",
   "type": "module",
   "exports": {
