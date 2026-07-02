@@ -1,5 +1,5 @@
 {
-  "name": "@phenotype/site-base",
+  "name": "@kooshapari/phenotype-site-base",
   "version": "1.0.0",
   "private": true,
   "type": "module",
@@ -14,9 +14,9 @@
   "dependencies": {
     "astro": "^6.1.9",
     "@astrojs/tailwind": "^6.0.2",
-    "@phenotype/ui": "workspace:*",
-    "@phenotype/design-tokens": "workspace:*",
-    "tailwindcss": "^3.4.17"
+    "tailwindcss": "^3.4.17",
+    "@kooshapari/phenotype-ui": "workspace:*",
+    "@kooshapari/phenotype-design-tokens": "workspace:*"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.4",
