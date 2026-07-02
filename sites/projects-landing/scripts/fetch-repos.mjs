@@ -15,9 +15,16 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
+const __filename = fileURLToPath(import.meta.url);
+const __isMain = resolve(process.argv[1] || "") === __filename;
 const OUT = resolve(__dirname, "..", "data", "repos.json");
 const USER = "KooshaPari";
 const PER_PAGE = 100;
+
+// Retry constants
+const MAX_RETRIES = 3;
+const BASE_DELAY_MS = 500;
+const REQUEST_TIMEOUT_MS = 15_000;
 
 const token = process.env.GITHUB_TOKEN || process.env.GH_TOKEN;
 const headers = {
@@ -27,9 +34,35 @@ const headers = {
 };
 if (token) headers.Authorization = `Bearer ${token}`;
 
+/**
+ * Fetch with bounded retry, exponential backoff + jitter, and AbortSignal timeout.
+ * Exported for testability.
+ */
+export async function fetchWithRetry(url, fetchOpts = {}, retries = MAX_RETRIES) {
+  let lastErr;
+  for (let attempt = 0; attempt <= retries; attempt++) {
+    const ac = new AbortController();
+    const timeoutId = setTimeout(() => ac.abort(), REQUEST_TIMEOUT_MS);
+    try {
+      const res = await fetch(url, { ...fetchOpts, signal: ac.signal });
+      return res;
+    } catch (err) {
+      lastErr = err;
+      if (attempt < retries) {
+        const delay = Math.min(BASE_DELAY_MS * 2 ** attempt + Math.random() * 200, 4000);
+        console.warn(`[retry] ${url} attempt ${attempt + 1} failed: ${err.message}, retrying in ${delay}ms`);
+        await new Promise((r) => setTimeout(r, delay));
+      }
+    } finally {
+      clearTimeout(timeoutId);
+    }
+  }
+  throw lastErr;
+}
+
 async function fetchPage(page) {
   const url = `https://api.github.com/users/${USER}/repos?per_page=${PER_PAGE}&page=${page}&sort=pushed`;
-  const res = await fetch(url, { headers });
+  const res = await fetchWithRetry(url, { headers });
   if (!res.ok) {
     const body = await res.text();
     throw new Error(`GitHub API ${res.status} on page ${page}: ${body.slice(0, 200)}`);
@@ -39,7 +72,7 @@ async function fetchPage(page) {
 
 async function fetchRepoTopics(owner, repo) {
   const url = `https://api.github.com/repos/${owner}/${repo}`;
-  const res = await fetch(url, { headers });
+  const res = await fetchWithRetry(url, { headers });
   if (!res.ok) return [];
   const json = await res.json();
   return (json.topics || []).map((name) => ({ name }));
@@ -76,10 +109,12 @@ async function main() {
   console.log(`wrote ${OUT} (${reshaped.length} repos, auth=${token ? "yes" : "no"})`);
 }
 
-main().catch((err) => {
-  console.error("fetch-repos failed:", err.message);
-  // Do NOT fail the build — fall back to the committed snapshot. Vercel build logs
-  // will show the warning, and the next cron-triggered deploy will retry.
-  console.error("falling back to committed data/repos.json snapshot");
-  process.exit(0);
-});
+if (__isMain) {
+  main().catch((err) => {
+    console.error("fetch-repos failed:", err.message);
+    // Do NOT fail the build — fall back to the committed snapshot. Vercel build logs
+    // will show the warning, and the next cron-triggered deploy will retry.
+    console.error("falling back to committed data/repos.json snapshot");
+    process.exit(0);
+  });
+}
