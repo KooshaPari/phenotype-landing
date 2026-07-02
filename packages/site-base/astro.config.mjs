@@ -10,7 +10,7 @@ export default defineConfig({
   vite: {
     resolve: {
       alias: {
-        '@phenotype/design-tokens/tokens.css': fileURLToPath(
+        '@kooshapari/phenotype-design-tokens/tokens.css': fileURLToPath(
           new URL('../design-tokens/tokens.css', import.meta.url),
         ),
       },

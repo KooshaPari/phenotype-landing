@@ -17,9 +17,9 @@ jobs:
       matrix:
         include:
           - package: packages/ui
-            name: "@phenotype/ui"
+            name: "@kooshapari/phenotype-ui"
           - package: packages/design-tokens
-            name: "@phenotype/design-tokens"
+            name: "@kooshapari/phenotype-design-tokens"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
