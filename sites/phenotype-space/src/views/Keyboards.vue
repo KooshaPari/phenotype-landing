@@ -1,15 +1,21 @@
 <script setup lang="ts">
-import Keyboard3D from "../components/Keyboard3D.vue";
+import { defineAsyncComponent } from "vue";
+
+// Lazy-load the 3D viewer so Three.js only ships when this view is visited.
+// TODO(Kooshapari): drop /public/keyboard.glb here — the recon inventory
+// targeted /Users/kooshapari/Downloads/WITF-Primary v2.glb, but that path is
+// sandboxed. Until a real .glb is in /public/, the viewer shows a 4x4 fallback.
+const Keyboard3D = defineAsyncComponent(() => import("../components/Keyboard3D.vue"));
 </script>
 
 <template>
   <section>
     <h1>Keyboards</h1>
     <p class="lede">
-      <!-- TODO(Kooshapari): describe the WITF / PhenoKeys lineup. -->
-      3D-printed and milled. Layouts tuned for fast code editing, with a heavy
-      emphasis on tactile switches and split ergonomic geometry. Below: a
-      work-in-progress render of the WITF-Primary v2.
+      WITF — "Whatever I Type Fast." A lineup of split / ortholinear / columnar
+      keyboards tuned for code editing. 3D-printed and milled cases, tactile
+      switches, QMK / Vial firmware. The viewer below renders the WITF-Primary
+      v2 model (currently showing a fallback cluster — see the TODO above).
     </p>
 
     <div class="viewer">

@@ -4,20 +4,14 @@ import * as THREE from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 
-const container = ref<HTMLDivElement | null>(null);
-const status = ref<"loading" | "ready" | "fallback" | "error">("loading");
-const errorMsg = ref<string>("");
-
-// The .glb is served from /public/. The recon inventory expected it at
-// /Users/kooshapari/Downloads/WITF-Primary v2.glb but that path is sandboxed
-// from this agent. If the file is missing, we render a placeholder key cluster.
+// TODO(Kooshapari): drop /public/keyboard.glb here. Until then, the viewer
+// renders a 4x4 fallback cluster so the page is never empty.
 const MODEL_URL = "/keyboard.glb";
 
-let renderer: THREE.WebGLRenderer | null = null;
-let frameId = 0;
+const container = ref<HTMLDivElement | null>(null);
+const status = ref<"loading" | "ready" | "fallback">("loading");
 
 function buildFallback(scene: THREE.Scene) {
-  // Minimal 4x4 key cluster so the page is never empty.
   const group = new THREE.Group();
   const mat = new THREE.MeshStandardMaterial({ color: 0x3b3f48, roughness: 0.6 });
   const cap = new THREE.MeshStandardMaterial({ color: 0x1c1f25, roughness: 0.4 });
@@ -33,6 +27,9 @@ function buildFallback(scene: THREE.Scene) {
   scene.add(group);
   status.value = "fallback";
 }
+
+let renderer: THREE.WebGLRenderer | null = null;
+let frameId = 0;
 
 onMounted(() => {
   const el = container.value;
@@ -57,18 +54,14 @@ onMounted(() => {
   key.position.set(5, 8, 5);
   scene.add(key);
 
-  const loader = new GLTFLoader();
-  loader.load(
+  new GLTFLoader().load(
     MODEL_URL,
     (gltf) => {
       scene.add(gltf.scene);
       status.value = "ready";
     },
     undefined,
-    () => {
-      errorMsg.value = `${MODEL_URL} not found — showing fallback.`;
-      buildFallback(scene);
-    }
+    () => buildFallback(scene)
   );
 
   const render = () => {
@@ -78,13 +71,12 @@ onMounted(() => {
   };
   render();
 
-  const onResize = () => {
+  window.addEventListener("resize", () => {
     if (!renderer) return;
     camera.aspect = el.clientWidth / el.clientHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(el.clientWidth, el.clientHeight);
-  };
-  window.addEventListener("resize", onResize);
+  });
 });
 
 onBeforeUnmount(() => {
@@ -98,7 +90,7 @@ onBeforeUnmount(() => {
   <div class="wrap">
     <div ref="container" class="canvas" />
     <p v-if="status === 'fallback'" class="note">
-      {{ errorMsg || "Fallback preview." }}
+      Showing fallback cluster — drop /public/keyboard.glb to load the real model.
     </p>
   </div>
 </template>

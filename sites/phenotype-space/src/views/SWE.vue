@@ -1,11 +1,8 @@
 <script setup lang="ts">
-interface Project { name: string; description: string; url: string }
-const projects: Project[] = [
-  { name: "AgilePlus", description: "Spec-governance engine — turn prompts into PRs.", url: "https://github.com/KooshaPari/AgilePlus" },
-  { name: "sharecli", description: "Rust process hypervisor for build/test orchestration.", url: "https://github.com/KooshaPari/sharecli" },
-  { name: "substrate", description: "Headless agent dispatch mesh across CLI providers.", url: "https://github.com/KooshaPari/substrate" },
-  { name: "SessionLedger", description: "Rust session-bundle compiler with desktop viewer.", url: "https://github.com/KooshaPari/SessionLedger" },
-  { name: "Tracera", description: "Spec-to-code traceability for Rust + TypeScript.", url: "https://github.com/KooshaPari/Tracera" },
+const projects = [
+  { name: "substrate",    description: "Headless agent dispatch mesh across CLI providers.",           url: "https://github.com/KooshaPari/substrate" },
+  { name: "sharecli",     description: "Rust process hypervisor for build/test orchestration.",     url: "https://github.com/KooshaPari/sharecli" },
+  { name: "PhenoFleet",   description: "Federated multi-agent orchestrator with lease protocol.",   url: "https://github.com/KooshaPari/phenofleet" },
 ];
 </script>
 
@@ -18,7 +15,7 @@ const projects: Project[] = [
       <article v-for="p in projects" :key="p.name" class="card">
         <h2>{{ p.name }}</h2>
         <p>{{ p.description }}</p>
-        <a :href="p.url" target="_blank" rel="noopener">Source &rarr;</a>
+        <a :href="p.url" target="_blank" rel="noopener">View source &rarr;</a>
       </article>
     </div>
   </section>
