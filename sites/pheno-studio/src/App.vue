@@ -1,19 +1,11 @@
 <script setup lang="ts">
-interface Variant {
-  name: string;
-  description: string;
-  url: string;
-  tag?: "primary" | "spec" | "studio" | "portfolio";
-}
-
-// Recon-inventoried phenotype surfaces. Extend as more deploys land.
-const variants: Variant[] = [
-  { name: "phenotype.space",        description: "Multi-page SPA: SWE, Keyboards, Me.",                  url: "https://phenotype.space",                tag: "primary" },
-  { name: "kooshapari.com",         description: "Personal site + blog.",                                url: "https://kooshapari.com",                 tag: "portfolio" },
-  { name: "agileplus.pheno.studio", description: "Spec-kitty frontend knockoff — feature workbench.",    url: "https://agileplus.pheno.studio",         tag: "spec" },
-  { name: "projects.kooshapari.com",description: "Auto-generated org portfolio (Astro).",                url: "https://projects.kooshapari.com",        tag: "portfolio" },
-  { name: "agileplus.kooshapari.com",description: "AgilePlus product landing.",                          url: "https://agileplus.kooshapari.com",       tag: "spec" },
-  { name: "pheno.studio",           description: "You are here. Card selector across all variants.",     url: "https://pheno.studio",                   tag: "studio" },
+const variants = [
+  { name: "phenotype.space",         description: "Multi-page SPA: SWE, Keyboards, Me.",                  url: "https://phenotype.space",         tag: "primary" },
+  { name: "kooshapari.com",          description: "Personal site + blog.",                                url: "https://kooshapari.com",          tag: "portfolio" },
+  { name: "agileplus.pheno.studio",  description: "Spec-kitty frontend knockoff — feature workbench.",    url: "https://agileplus.pheno.studio",  tag: "spec" },
+  { name: "projects.kooshapari.com", description: "Auto-generated org portfolio (Astro).",                url: "https://projects.kooshapari.com", tag: "portfolio" },
+  { name: "agileplus.kooshapari.com",description: "AgilePlus product landing.",                           url: "https://agileplus.kooshapari.com",tag: "spec" },
+  { name: "pheno.studio",            description: "You are here. Card selector across all variants.",     url: "https://pheno.studio",            tag: "studio" },
 ];
 </script>
 
@@ -21,7 +13,7 @@ const variants: Variant[] = [
   <div class="layout">
     <header>
       <h1>pheno.studio</h1>
-      <p>Pick a deployed variant of the phenotype org.</p>
+      <p>A launchpad for everything phenotype — pick a destination to compare side-by-side.</p>
     </header>
 
     <main class="grid">
