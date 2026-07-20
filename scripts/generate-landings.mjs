@@ -90,7 +90,7 @@ async function generateSite(project) {
   // Copy template files ( Astro page, styles, etc. )
   // For now, we just write a minimal index.astro that imports the shared template
   const indexAstro = `---
-import { Hero, Features, CTA, Footer, Header } from '@kooshapari/phenotype-ui';
+import { Hero, Features, CTA, Footer, Header } from '@phenotype/landing-ui';
 import config from '../data/config.json';
 
 const { brand, hero, features, cta, footer, header } = config;
@@ -145,8 +145,8 @@ const { brand, hero, features, cta, footer, header } = config;
       },
       dependencies: {
         astro: "^6.1.9",
-        "@kooshapari/phenotype-ui": "workspace:*",
-        "@kooshapari/phenotype-design-tokens": "workspace:*",
+        "@phenotype/landing-ui": "github:KooshaPari/phenoDesign",
+        "@phenotype/design-tokens": "github:KooshaPari/phenoDesign",
       },
       devDependencies: {
         "@types/node": "^25.6.0",
