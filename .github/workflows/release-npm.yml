@@ -16,10 +16,8 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - package: packages/ui
-            name: "@kooshapari/phenotype-ui"
-          - package: packages/design-tokens
-            name: "@kooshapari/phenotype-design-tokens"
+          - package: packages/auth
+            name: "@phenotype/auth"
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v6

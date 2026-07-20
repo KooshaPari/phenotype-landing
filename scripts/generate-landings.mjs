@@ -145,8 +145,8 @@ const { brand, hero, features, cta, footer, header } = config;
       },
       dependencies: {
         astro: "^6.1.9",
-        "@kooshapari/phenotype-ui": "workspace:*",
-        "@kooshapari/phenotype-design-tokens": "workspace:*",
+        "@kooshapari/phenotype-ui": "github:KooshaPari/phenoDesign",
+        "@kooshapari/phenotype-design-tokens": "github:KooshaPari/phenoDesign",
       },
       devDependencies: {
         "@types/node": "^25.6.0",
